@@ -36,11 +36,6 @@ namespace HotelAPI.Services.HotelData
 
                 if (hotel != null)
                 {
-                   /* var contacts = context.ContactInformation.Where(contact => contact.hotel)
-                    if ()
-                    {
-
-                    }*/
 
                     context.Hotel.Remove(hotel);
 
@@ -48,14 +43,32 @@ namespace HotelAPI.Services.HotelData
                 }
                 else
                 {
-                    throw new Exception("Silme işlemi yapılamadı");
+                    throw new Exception("Verilen GUID 'ye ait otel bilgisi bulunamadı");
                 }
             }
         }
 
-        public IEnumerable<Hotel> GetAllHotelsAuthorizedPerson()
+        public IEnumerable<DtoHotelAuthDetail> GetAllHotelsAuthorizedPersonDetail()
         {
-            return context.Hotel.ToList();
+
+            var hotelList = context.Hotel.ToList();
+
+            List<DtoHotelAuthDetail> responseDto = new List<DtoHotelAuthDetail>();
+
+            foreach (var hotel in hotelList)
+            {
+                var contacts = context.ContactInformation.Where(contact => contact.HotelUuid == hotel.Uuid).ToList();
+
+                responseDto.Add(new DtoHotelAuthDetail()
+                {
+                    AuthorizedName = hotel.AuthorizedName,
+                    AuthorizedSurname = hotel.AuthorizedSurname,
+                    CompanyTitle = hotel.CompanyTitle,
+                    ContactInformation = (from y in contacts select new ContactInfoClean { InformationContent = y.InformationContent, InformationType = y.InformationType }).ToList()
+                });
+            }
+
+            return responseDto;
         }
 
     }

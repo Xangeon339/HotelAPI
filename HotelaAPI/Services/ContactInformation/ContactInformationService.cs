@@ -16,20 +16,20 @@ namespace HotelAPI.Services.ContactInformation
         {
             using (context)
             {
-/*
-                var hotel = context.Hotel.FirstOrDefault(hotel => hotel.ContactInformation.Any(x=> x.Uuid == contactInformation.Uuid));
-                
-                if (hotel != null)
-                {*/
+                bool hotel = context.Hotel.Any(hotel => hotel.Uuid == contactInformation.HotelUuid);
+
+                if (hotel)
+                {
+                    contactInformation.Uuid = Guid.NewGuid();
 
                     context.ContactInformation.Add(contactInformation);
 
                     context.SaveChanges();
-                /*}
+                }
                 else
                 {
                     throw new Exception("İletişim bilgisine bağlı otel bulunamadı");
-                }*/
+                }
 
             }
         }
@@ -48,7 +48,7 @@ namespace HotelAPI.Services.ContactInformation
                 }
                 else
                 {
-                    throw new Exception("Silme işlemi yapılamadı");
+                    throw new Exception("Verilen GUID ye ait bir iletişim bilgisi bulunamadı");
                 }
             }
         }

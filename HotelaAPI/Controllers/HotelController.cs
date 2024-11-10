@@ -47,12 +47,12 @@ namespace HotelAPI.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllHotelsAuthorizedPerson")]
-        public IEnumerable<Hotel> GetAllHotelsAuthorizedPerson() 
+        [Route("GetAllHotelsAuthorizedPersonDetail")]
+        public IEnumerable<DtoHotelAuthDetail> GetAllHotelsAuthorizedPersonDetail() 
         {
             try
             {
-                var hotelList = hotelDataService.GetAllHotelsAuthorizedPerson();
+                var hotelList = hotelDataService.GetAllHotelsAuthorizedPersonDetail();
 
                 return hotelList;
             }
