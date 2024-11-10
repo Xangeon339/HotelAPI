@@ -46,9 +46,20 @@ namespace HotelAPI.Controllers
             }
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IActionResult Get(Guid hotelId) 
-        { 
+        [HttpGet]
+        [Route("GetAllHotelsAuthorizedPerson")]
+        public IEnumerable<Hotel> GetAllHotelsAuthorizedPerson() 
+        {
+            try
+            {
+                var hotelList = hotelDataService.GetAllHotelsAuthorizedPerson();
+
+                return hotelList;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
     }

@@ -6,5 +6,6 @@ namespace HotelAPI.Services.HotelData
     {
         void AddHotel(Hotel hotel);
         void DeleteHotel(Guid hotelId);
+        IEnumerable<Hotel> GetAllHotelsAuthorizedPerson();
     }
 }

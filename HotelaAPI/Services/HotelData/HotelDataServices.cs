@@ -17,9 +17,12 @@ namespace HotelAPI.Services.HotelData
         {
                 using (context)
                 {
-                  context.Hotel.Add(hotel);
 
-                  context.SaveChanges();
+                    hotel.Uuid = Guid.NewGuid();
+
+                    context.Hotel.Add(hotel);
+
+                    context.SaveChanges();
   
                 }
         }
@@ -33,6 +36,12 @@ namespace HotelAPI.Services.HotelData
 
                 if (hotel != null)
                 {
+                   /* var contacts = context.ContactInformation.Where(contact => contact.hotel)
+                    if ()
+                    {
+
+                    }*/
+
                     context.Hotel.Remove(hotel);
 
                     context.SaveChanges();
@@ -43,5 +52,11 @@ namespace HotelAPI.Services.HotelData
                 }
             }
         }
+
+        public IEnumerable<Hotel> GetAllHotelsAuthorizedPerson()
+        {
+            return context.Hotel.ToList();
+        }
+
     }
 }

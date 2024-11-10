@@ -16,18 +16,20 @@ namespace HotelAPI.Services.ContactInformation
         {
             using (context)
             {
-                var hotel = context.Hotel.FirstOrDefault(hotel => hotel.ContactInformation.Uuid == contactInformation.Uuid);
-
+/*
+                var hotel = context.Hotel.FirstOrDefault(hotel => hotel.ContactInformation.Any(x=> x.Uuid == contactInformation.Uuid));
+                
                 if (hotel != null)
-                {
+                {*/
+
                     context.ContactInformation.Add(contactInformation);
 
                     context.SaveChanges();
-                }
+                /*}
                 else
                 {
                     throw new Exception("İletişim bilgisine bağlı otel bulunamadı");
-                }
+                }*/
 
             }
         }
