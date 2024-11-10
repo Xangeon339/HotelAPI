@@ -16,25 +16,27 @@ namespace HotelAPI.Services.ContactInformation
         {
             using (context)
             {
-                var hotel = context.Hotel.FirstOrDefault(predicate: hotel => hotel.Uuid == contactInformation.Hotel.Uuid);
+                var hotel = context.Hotel.FirstOrDefault(hotel => hotel.ContactInformation.Uuid == contactInformation.Uuid);
 
-                if (hotel == null) 
+                if (hotel != null)
+                {
+                    context.ContactInformation.Add(contactInformation);
+
+                    context.SaveChanges();
+                }
+                else
                 {
                     throw new Exception("İletişim bilgisine bağlı otel bulunamadı");
                 }
 
-                context.ContactInformation.Add(contactInformation);
-
-                context.SaveChanges();
-
             }
         }
 
-        public void DeleteContactInformation(Guid contactId)
+        public void DeleteContactInformation(Guid contactInformationId)
         {
             using (context)
             {
-                var contact = context.ContactInformation.FirstOrDefault(contact => contact.Uuid == contactId);
+                var contact = context.ContactInformation.FirstOrDefault(contact => contact.Uuid == contactInformationId);
 
                 if (contact != null)
                 {

@@ -27,7 +27,6 @@ namespace HotelAPI.Database
         }
 
         public DbSet<Hotel> Hotel { get; set; }
-        public DbSet<Contact> Contact { get; set; }
         public DbSet<ContactInformation> ContactInformation { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

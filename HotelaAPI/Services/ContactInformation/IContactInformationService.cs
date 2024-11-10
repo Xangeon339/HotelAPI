@@ -3,6 +3,6 @@
     public interface IContactInformationService
     {
         void AddContactInformation(HotelAPI.Models.ContactInformation contactInformation);
-        void DeleteContactInformation(Guid contactId);
+        void DeleteContactInformation(Guid contactInformationId);
     }
 }
