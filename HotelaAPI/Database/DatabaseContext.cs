@@ -2,12 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
 
 namespace HotelAPI.Database
 {
     public class DatabaseContext : DbContext
     {
-        const string connectionString = "Data Source=MONSTER\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Pooling=False;Encrypt=False;Trust Server Certificate=False;";
+        //const string connectionString = "Data Source=MONSTER\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Pooling=False;Encrypt=False;Trust Server Certificate=False;";
 
         public DatabaseContext(DbContextOptions<DatabaseContext> dbContextOptions) : base(dbContextOptions) 
         {
@@ -28,9 +29,18 @@ namespace HotelAPI.Database
 
         public DbSet<Hotel> Hotel { get; set; }
         public DbSet<ContactInformation> ContactInformation { get; set; }
+        public DbSet<Report> Report { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var builder = new ConfigurationBuilder();
+            builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            IConfigurationRoot configuration
+             = builder.Build();
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            //optionsBuilder.UseSqlServer(connectionString);
             optionsBuilder.UseSqlServer(connectionString);
         }
 

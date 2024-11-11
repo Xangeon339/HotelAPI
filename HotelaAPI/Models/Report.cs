@@ -9,7 +9,8 @@ namespace HotelAPI.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Uuid { get; set; }
-        public Point Location { get; set; }
+        public float Latitude { get; set; }
+        public float Longitude { get; set; }
         public int RegisteredOtelCount { get; set; }
         public int RegisteredPhoneCount { get; set; }
         public DateTime DateRequested { get; set; }

@@ -1,7 +1,10 @@
-using HotelAPI.Database;
+﻿using HotelAPI.Database;
 using HotelAPI.Services.ContactInformation;
 using HotelAPI.Services.HotelData;
+using HotelAPI.Services.ReportData;
+using HotelAPI.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace HotelAPI
 {
@@ -28,8 +31,18 @@ namespace HotelAPI
 
             builder.Services.AddScoped<IContactInformationService, ContactInformationService>();
 
+            builder.Services.AddScoped<IReportDataService, ReportDataService>();
+
+            builder.Services.AddScoped<IRabbitMQScheduleTask, RabbitMQScheduleTask>();
+
             var app = builder.Build();
 
+            #region rabbitmq start service
+            RabbitMQScheduleTask _timer = new RabbitMQScheduleTask();
+
+            _timer.StartTimer();
+            #endregion
+            
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -43,6 +56,8 @@ namespace HotelAPI
             app.MapControllers();
 
             app.Run();
+
+           
         }
     }
 }

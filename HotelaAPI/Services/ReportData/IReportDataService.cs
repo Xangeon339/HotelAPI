@@ -4,10 +4,11 @@ namespace HotelAPI.Services.ReportData
 {
     public interface IReportDataService
     {
-        Guid CreateReportAsync(Hotel hotel);
+        Task<Guid> CreateReportAsync(Hotel hotel);
         IEnumerable<Report> GetAllReports();
         Report GetReport(Guid reportId);
         EnmStatusType GetReportStatus(Guid reportId);
+        void CheckQueque(Report report);
 
     }
 }
