@@ -6,6 +6,7 @@ using HotelAPI.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace HotelAPI
 {
@@ -25,11 +26,15 @@ namespace HotelAPI
             var builder = WebApplication.CreateBuilder(args);
 
             #region Logging
+            // Log configuration
+            var logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger();
 
-
-
-
-
+            builder.Logging.ClearProviders();
+            // Add Serilog Library
+            builder.Logging.AddSerilog(logger);
             #endregion
 
             builder.Services.AddControllers();

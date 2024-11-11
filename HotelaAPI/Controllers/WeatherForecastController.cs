@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace HotelAPI.Controllers
 {
@@ -21,6 +22,13 @@ namespace HotelAPI.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            // Microsoft extension logger
+            _logger.LogInformation("Get method executing...");
+
+            // Serilog log message
+            Log.Information("Get method executing...");
+            Log.Warning("Warning message...");
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
