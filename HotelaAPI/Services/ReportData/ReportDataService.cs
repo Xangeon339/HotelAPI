@@ -44,8 +44,6 @@ namespace HotelAPI.Services.ReportData
                 Report report = new Report()
                 {
                     DateRequested = DateTime.Now,
-                    Latitude = hotel.Latitude,
-                    Longitude = hotel.Longitude,
                     Status = EnmStatusType.InProgress,
                     Uuid = Guid.NewGuid()
                 };
@@ -70,59 +68,26 @@ namespace HotelAPI.Services.ReportData
 
         public IEnumerable<Report> GetAllReports()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using var
- connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
-
-            channel.QueueDeclare(queue: "task_queue", durable: true, exclusive: false, autoDelete: false, arguments: null);
-
-            channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
-
-
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
+            using (context)
             {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
+                var reportList = context.Report.ToList();
 
-                var numbers = message.Split(',');
-                int num1 = int.Parse(numbers[0]);
-                int num2 = int.Parse(numbers[1]);
-                int result = num1 + num2;
-
-                channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-            };
-            channel.BasicConsume(queue: "task_queue", consumer: consumer);
-
-
-            throw new NotImplementedException();
+                return reportList;
+            }
         }
 
         public Report GetReport(Guid reportId)
         {
-            throw new NotImplementedException();
-        }
-
-        public EnmStatusType GetReportStatus(Guid reportId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CheckQueque(Report report)
-        {
-           
             using (context)
             {
-                var dbReport = context.Report.FirstOrDefault(x => x.Uuid == report.Uuid);
+                var report = context.Report.FirstOrDefault( x => x.Uuid == reportId);
 
-                dbReport.Status = EnmStatusType.Done;
+                if (report == null)
+                {
+                    throw new Exception("Verilen GUID ye ait bir rapor bulunamadı");
+                }
 
-                context.Update(dbReport);
-
-                context.SaveChanges();
-
-
+                return report;
             }
         }
     }

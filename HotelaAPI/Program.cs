@@ -33,8 +33,6 @@ namespace HotelAPI
 
             builder.Services.AddScoped<IReportDataService, ReportDataService>();
 
-            builder.Services.AddScoped<IRabbitMQScheduleTask, RabbitMQScheduleTask>();
-
             var app = builder.Build();
 
             #region rabbitmq start service

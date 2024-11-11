@@ -10,7 +10,7 @@ using System.Text;
 using System.Timers;
 namespace HotelAPI.Tasks
 {
-    public class RabbitMQScheduleTask : IRabbitMQScheduleTask
+    public class RabbitMQScheduleTask
     {
         private System.Timers.Timer _timer;
 
@@ -20,7 +20,8 @@ namespace HotelAPI.Tasks
 
         public void StartTimer()
         {
-            _timer = new System.Timers.Timer(5000);
+            //_timer = new System.Timers.Timer(5000);// 5 sn
+            _timer = new System.Timers.Timer(10000);
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
             _timer.Enabled = true;
@@ -76,39 +77,6 @@ namespace HotelAPI.Tasks
                     }
 
                 };
-            
-            /*
-            channel.BasicConsume(queue: "task_queue",
-                                 noAck: true,
-                                 consumer: consumer);
-            */
-
-            /*
-                        channel.QueueDeclare(queue: "task_queue", durable: false, exclusive: false, autoDelete: false, arguments: null);
-                        Console.WriteLine("Timer başladı.");
-                        var consumer = new EventingBasicConsumer(channel);
-                        consumer.Received += (model, ea) =>
-                        {
-                            Console.WriteLine("veri tabanından önce");
-                            var body = ea.Body.ToArray();
-                            var message = Encoding.UTF8.GetString(body);
-                            var request = JsonConvert.DeserializeObject<Report>(message);
-
-
-
-                            using (context)
-                            {
-                                var report = context.Report.FirstOrDefault(x => x.Uuid == request.Uuid);
-
-                                report.Status = EnmStatusType.Done;
-
-                                context.Update(report);
-
-                                context.SaveChanges();
-
-                                Console.WriteLine("Status değişti");
-                            }
-                        };*/
         }
 
     }

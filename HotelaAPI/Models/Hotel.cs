@@ -12,9 +12,6 @@ namespace HotelAPI.Models
         public string? CompanyTitle { get; set; }
         public string? AuthorizedName { get; set; }
         public string? AuthorizedSurname { get; set; }
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
-        public string? Address { get; set; }
         public virtual IEnumerable<ContactInformation>? ContactInformation { get; set; }
     }
 }
