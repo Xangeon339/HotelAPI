@@ -28,7 +28,7 @@ namespace HotelAPI.Services.ReportData
             this.context = context;
         }
 
-        public async Task<Guid> CreateReportAsync(Hotel hotel)
+        public async Task<Guid> CreateReportAsync(Guid hotelId)
         {
             using var connection =  factory.CreateConnection();
             using var channel =  connection.CreateModel();
@@ -45,7 +45,8 @@ namespace HotelAPI.Services.ReportData
                 {
                     DateRequested = DateTime.Now,
                     Status = EnmStatusType.InProgress,
-                    Uuid = Guid.NewGuid()
+                    Uuid = Guid.NewGuid(),
+                    HotelId = hotelId
                 };
 
                 context.Report.Add(report);
@@ -62,8 +63,6 @@ namespace HotelAPI.Services.ReportData
                 return report.Uuid;
             }
 
-
-            
         }
 
         public IEnumerable<Report> GetAllReports()

@@ -13,18 +13,26 @@ namespace HotelAPI.Services.HotelData
             this.context = context;
         }
 
-        public Hotel AddHotel(Hotel hotel)
+        public Guid AddHotel(Hotel hotel)
         {
                 using (context)
                 {
                 
                     hotel.Uuid = Guid.NewGuid();
 
+                if (hotel.ContactInformation.Any())
+                {
+                    foreach(var contact in hotel.ContactInformation)
+                    {
+                        contact.Uuid = Guid.NewGuid();
+                    }
+                }
+
                     var result = context.Hotel.Add(hotel);
 
                     context.SaveChanges();
 
-                    return hotel;
+                    return result.Entity.Uuid;
                 }
         }
 

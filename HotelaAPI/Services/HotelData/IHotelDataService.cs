@@ -4,7 +4,7 @@ namespace HotelAPI.Services.HotelData
 {
     public interface IHotelDataService
     {
-        Hotel AddHotel(Hotel hotel);
+        Guid AddHotel(Hotel hotel);
         void DeleteHotel(Guid hotelId);
         IEnumerable<DtoHotelAuthDetail> GetAllHotelsAuthorizedPersonDetail();
     }

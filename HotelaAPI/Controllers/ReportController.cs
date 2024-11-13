@@ -18,12 +18,12 @@ namespace HotelAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateReport([FromBody] Hotel hotel)
+        public IActionResult CreateReport([FromBody] Guid hotelId)
         {
 
             try
             {
-                reportDataService.CreateReportAsync(hotel);
+                reportDataService.CreateReportAsync(hotelId);
 
                 return Ok();
             }

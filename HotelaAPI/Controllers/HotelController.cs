@@ -27,7 +27,7 @@ namespace HotelAPI.Controllers
             {
                var result = hotelDataService.AddHotel(hotel);
 
-                return Ok();
+                return Ok(result);
             }
             catch (Exception ex) 
             { 
@@ -52,17 +52,17 @@ namespace HotelAPI.Controllers
 
         [HttpGet]
         [Route("GetAllHotelsAuthorizedPersonDetail")]
-        public IEnumerable<DtoHotelAuthDetail> GetAllHotelsAuthorizedPersonDetail() 
-        {
+        public IActionResult GetAllHotelsAuthorizedPersonDetail()
+        { 
             try
             {
                 var hotelList = hotelDataService.GetAllHotelsAuthorizedPersonDetail();
 
-                return hotelList;
+                return Ok(hotelList);
             }
             catch (Exception ex)
             {
-                return null;
+                return StatusCode(500, ex.Message);
             }
         }
 
