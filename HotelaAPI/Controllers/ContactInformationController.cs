@@ -11,6 +11,10 @@ namespace HotelAPI.Controllers
     {
         private readonly IContactInformationService contactInformationService;
 
+        public ContactInformationController()
+        {
+        }
+
         public ContactInformationController(IContactInformationService contactInformationService)
         {
             this.contactInformationService = contactInformationService;

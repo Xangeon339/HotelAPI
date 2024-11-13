@@ -12,6 +12,10 @@ namespace HotelAPI.Controllers
     {
         private readonly IHotelDataService hotelDataService;
 
+        public HotelController()
+        {
+        }
+
         public HotelController(
             IHotelDataService hotelDataService
             )
