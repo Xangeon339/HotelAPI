@@ -10,11 +10,6 @@ namespace HotelAPI.Controllers
     public class ContactInformationController : ControllerBase
     {
         private readonly IContactInformationService contactInformationService;
-
-        public ContactInformationController()
-        {
-        }
-
         public ContactInformationController(IContactInformationService contactInformationService)
         {
             this.contactInformationService = contactInformationService;
@@ -26,9 +21,9 @@ namespace HotelAPI.Controllers
 
             try
             {
-                contactInformationService.AddContactInformation(contactInformation);
+                var result = contactInformationService.AddContactInformation(contactInformation);
 
-                return Ok();
+                return Ok(result);
             }
             catch (Exception ex)
             {

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace HotelAPI.Database
 {
@@ -36,10 +37,10 @@ namespace HotelAPI.Database
             IConfigurationRoot configuration
              = builder.Build();
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("MSSQL");
 
             optionsBuilder.UseSqlServer(connectionString);
-            
+
         }
 
     }

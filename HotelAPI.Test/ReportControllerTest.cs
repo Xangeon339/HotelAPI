@@ -14,7 +14,7 @@ namespace HotelAPI.Test
         public void CreateReport()
         {
 
-            var controller = new ReportController();
+            var controller = new ReportController(null);
 
             Guid reportId = Guid.NewGuid();
 

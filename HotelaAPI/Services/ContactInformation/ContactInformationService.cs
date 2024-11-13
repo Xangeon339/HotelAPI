@@ -13,7 +13,7 @@ namespace HotelAPI.Services.ContactInformation
             this.context = context;
         }
 
-        public void AddContactInformation(HotelAPI.Models.ContactInformation contactInformation)
+        public Guid AddContactInformation(HotelAPI.Models.ContactInformation contactInformation)
         {
             using (context)
             {
@@ -33,9 +33,11 @@ namespace HotelAPI.Services.ContactInformation
 
                     contactInformation.Uuid = Guid.NewGuid();
 
-                    context.ContactInformation.Add(contactInformation);
+                    var result = context.ContactInformation.Add(contactInformation);
 
                     context.SaveChanges();
+
+                    return result.Entity.Uuid;
                 }
                 else
                 {

@@ -11,11 +11,6 @@ namespace HotelAPI.Controllers
     public class HotelController : ControllerBase
     {
         private readonly IHotelDataService hotelDataService;
-
-        public HotelController()
-        {
-        }
-
         public HotelController(
             IHotelDataService hotelDataService
             )

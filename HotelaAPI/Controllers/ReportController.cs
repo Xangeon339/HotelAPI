@@ -11,11 +11,6 @@ namespace HotelAPI.Controllers
     public class ReportController : ControllerBase
     {
         private readonly IReportDataService reportDataService;
-
-        public ReportController()
-        {
-        }
-
         public ReportController(IReportDataService reportDataService)
         {
             this.reportDataService = reportDataService;

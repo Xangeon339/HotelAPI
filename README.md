@@ -13,6 +13,11 @@ docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0-man
 
 RabbitMQ yönetim arayüzüne http://localhost:15672 adresinden ulaşabilirsiniz. Kullanıcı adı: guest, şifre: guest.
 
+
+Veritabanı Bağlantısı (ConnectionString)
+
+"appsettings.json" dosyasında "MSSQL" olarak belirtilmiştir. Proje veritabanı bağlantısını oradan almaktadır. ConnectionStrings düzenlenerek veritabanı değiştirilebilir.
+
 Veri Modeli
 
 ContactInformation:
@@ -20,6 +25,7 @@ InformationType: İletişim bilgisinin türü (örn: Telefon, Email, Web sitesi)
 Location: İletişim bilgisinin ait olduğu konum (örn: Şehir, Ülke)
 InformationContent: İletişim bilgisinin değeri (örn: Telefon numarası, Email adresi)
 Not: Eğer InformationType değeri "Location" ise, InformationContent değeri bir Location nesnesi olarak JSON formatında saklanmalıdır.
+
 İşlevsellikler
 
 Otel İşlemleri:

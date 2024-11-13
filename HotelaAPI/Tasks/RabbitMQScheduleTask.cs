@@ -58,9 +58,10 @@ namespace HotelAPI.Tasks
                     IConfigurationRoot configuration
                      = builder.Build();
 
-                    var connectionString = configuration.GetConnectionString("DefaultConnection");
+                    var connectionString = configuration.GetConnectionString("MSSQL");
 
                     var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+
                     optionsBuilder.UseSqlServer(connectionString);
 
                     using (var context = new DatabaseContext(optionsBuilder.Options))

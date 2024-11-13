@@ -14,7 +14,7 @@ namespace HotelAPI.Test
         public void AddContactInformation()
         {
 
-            var controller = new ContactInformationController();
+            var controller = new ContactInformationController(null);
 
             ContactInformation conInfo = new ContactInformation()
             {

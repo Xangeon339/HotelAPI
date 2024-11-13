@@ -21,7 +21,9 @@ namespace HotelAPI
             IConfigurationRoot configuration
              = confBuilder.Build();
             #endregion
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("MSSQL");
+            
+            //var connectionString = configuration.GetConnectionString("MYSQL");
 
             var builder = WebApplication.CreateBuilder(args);
 

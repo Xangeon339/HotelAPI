@@ -16,7 +16,7 @@ namespace HotelAPI.Test
         public void AddHotelTest()
         {
 
-            var controller = new HotelController();
+            var controller = new HotelController(null);
 
             List<ContactInformation> testConInfoList = new List<ContactInformation>();
 
