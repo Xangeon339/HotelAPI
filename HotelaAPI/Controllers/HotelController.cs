@@ -1,6 +1,8 @@
 ﻿using HotelAPI.Models;
 using HotelAPI.Services.HotelData;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
+using Serilog.Data;
 
 namespace HotelAPI.Controllers
 {
@@ -10,7 +12,9 @@ namespace HotelAPI.Controllers
     {
         private readonly IHotelDataService hotelDataService;
 
-        public HotelController(IHotelDataService hotelDataService)
+        public HotelController(
+            IHotelDataService hotelDataService
+            )
         {
             this.hotelDataService = hotelDataService;
         }
@@ -21,7 +25,7 @@ namespace HotelAPI.Controllers
 
             try
             {
-               hotelDataService.AddHotel(hotel);
+               var result = hotelDataService.AddHotel(hotel);
 
                 return Ok();
             }

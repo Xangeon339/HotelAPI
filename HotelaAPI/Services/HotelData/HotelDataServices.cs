@@ -13,17 +13,18 @@ namespace HotelAPI.Services.HotelData
             this.context = context;
         }
 
-        public void AddHotel(Hotel hotel)
+        public Hotel AddHotel(Hotel hotel)
         {
                 using (context)
                 {
-
+                
                     hotel.Uuid = Guid.NewGuid();
 
-                    context.Hotel.Add(hotel);
+                    var result = context.Hotel.Add(hotel);
 
                     context.SaveChanges();
-  
+
+                    return hotel;
                 }
         }
 
