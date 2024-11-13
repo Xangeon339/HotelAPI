@@ -23,9 +23,9 @@ namespace HotelAPI.Controllers
 
             try
             {
-                reportDataService.CreateReportAsync(hotelId);
+                var result = reportDataService.CreateReportAsync(hotelId);
 
-                return Ok();
+                return Ok(result);
             }
             catch (Exception ex)
             {

@@ -67,16 +67,58 @@ namespace HotelAPI.Tasks
                     {
                         var dbReport = context.Report.FirstOrDefault(x => x.Uuid == request.Uuid);
 
+                        var allContactLocationList = context.ContactInformation.Where(x => x.InformationType == EnmInformationType.Location) ;
+
+                        var dbContactInformationLocationList = allContactLocationList.Where(x => (x.HotelUuid == dbReport.HotelId) && (x.InformationType == EnmInformationType.Location));
+
+                        int regHotCount = 0, regPhoCount = 0;
+
+                        if(dbContactInformationLocationList != null)
+                        {
+                            foreach(ContactInformation conInfo in dbContactInformationLocationList)
+                            {
+                                Location loc = JsonConvert.DeserializeObject<Location>(conInfo.InformationContent);
+
+                                foreach (ContactInformation conInfoAll in allContactLocationList)
+                                {
+                                    Location locAll = JsonConvert.DeserializeObject<Location>(conInfoAll.InformationContent);
+                                    if (CalculateDistance(loc.Latitude,loc.Longitude,locAll.Latitude,locAll.Longitude) < 500)
+                                    {
+                                        regHotCount++;
+
+                                        regPhoCount += context.ContactInformation.Where(x => (x.HotelUuid == conInfoAll.HotelUuid) && (x.InformationType == EnmInformationType.PhoneNumber)).Count();
+
+                                    }
+                                }
+
+                                
+                            }
+                        }
+
                         dbReport.Status = EnmStatusType.Done;
+
+                        Console.WriteLine(JsonConvert.SerializeObject(dbReport));
 
                         context.Update(dbReport);
 
                         context.SaveChanges();
 
-
                     }
 
                 };
+        }
+
+
+        public double CalculateDistance(double x1, double y1, double x2, double y2)
+        {
+            // İki nokta arasındaki uzaklık formülü:
+            // √((x2 - x1)^2 + (y2 - y1)^2)
+
+            double deltaX = x2 - x1;
+            double deltaY = y2 - y1;
+            double distance = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            return distance;
         }
 
     }

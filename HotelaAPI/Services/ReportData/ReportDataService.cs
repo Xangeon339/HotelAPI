@@ -30,8 +30,8 @@ namespace HotelAPI.Services.ReportData
 
         public async Task<Guid> CreateReportAsync(Guid hotelId)
         {
-            using var connection =  factory.CreateConnection();
-            using var channel =  connection.CreateModel();
+             var connection =  factory.CreateConnection();
+             var channel =  connection.CreateModel();
 
             channel.QueueDeclare(queue: "task_queue",
                                  durable: false,
@@ -41,6 +41,12 @@ namespace HotelAPI.Services.ReportData
 
             using (context)
             {
+
+                if(context.Hotel.FirstOrDefault(x => x.Uuid == hotelId) == null)
+                {
+                    throw new Exception("GUID ye ait bir hotel kaydı bulunamadı");
+                }
+
                 Report report = new Report()
                 {
                     DateRequested = DateTime.Now,

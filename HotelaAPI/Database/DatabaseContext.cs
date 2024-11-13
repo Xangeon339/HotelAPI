@@ -8,8 +8,6 @@ namespace HotelAPI.Database
 {
     public class DatabaseContext : DbContext
     {
-        //const string connectionString = "Data Source=MONSTER\\SQLEXPRESS;Initial Catalog=HotelDB;Integrated Security=True;Pooling=False;Encrypt=False;Trust Server Certificate=False;";
-
         public DatabaseContext(DbContextOptions<DatabaseContext> dbContextOptions) : base(dbContextOptions) 
         {
             try
@@ -40,8 +38,8 @@ namespace HotelAPI.Database
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            //optionsBuilder.UseSqlServer(connectionString);
             optionsBuilder.UseSqlServer(connectionString);
+            
         }
 
     }

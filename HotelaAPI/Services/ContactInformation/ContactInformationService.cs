@@ -1,5 +1,6 @@
 ﻿using HotelAPI.Database;
 using HotelAPI.Models;
+using Newtonsoft.Json;
 
 namespace HotelAPI.Services.ContactInformation
 {
@@ -20,6 +21,16 @@ namespace HotelAPI.Services.ContactInformation
 
                 if (hotel)
                 {
+                    if(contactInformation.InformationType == EnmInformationType.Location)
+                    {
+                        Location loc = JsonConvert.DeserializeObject<Location>(contactInformation.InformationContent);
+
+                        if(loc == null)
+                        {
+                            throw new Exception("Location bilgisi Location classının json çıktısı olarak gönderilmelidir");
+                        }
+                    }
+
                     contactInformation.Uuid = Guid.NewGuid();
 
                     context.ContactInformation.Add(contactInformation);
